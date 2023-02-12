@@ -1,0 +1,5 @@
+venv
+.venv
+*/.venv
+lomonosov_test
+.idea
