@@ -3,3 +3,4 @@ venv
 */.venv
 lomonosov_test
 .idea
+/states_directory/

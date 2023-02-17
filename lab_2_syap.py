@@ -1,5 +1,5 @@
-# import pandas as pd
-# import numpy as np
+import pandas as pd
+import numpy as np
 
 
 def math_operations() -> None:
@@ -9,6 +9,7 @@ def math_operations() -> None:
     При передаче в методы параметров a и b с ними нужно производить соответствующие действия и печатать ответ.
     :return: None
     """
+
     class Math:
         a: float
         b: float
@@ -56,9 +57,46 @@ def math_operations() -> None:
             print('Не смогу я на нолик поделить, извини...')
 
 
+def if_practice() -> None:
+    print('IF ----- PRACTICE')
+    df = pd.DataFrame(
+        {'States': ['California', 'Florida', 'Montana', 'Colorado', 'Washington', 'Virginia'],
+         'Capitals': ['Sacramento', 'Tallahassee', 'Helena', 'Denver', 'Olympia', 'Richmond'],
+         'Population': [508529, 193551, 32315, 619968, 52555, 227032]}
+    )
+    df.to_excel('./states_directory/states.xlsx')
+    print("Был создан excel-file с информацией о штатах!")
+    print(df)
+
+    min_population = int(input('Минимальное население?\n'))
+    filtered_df = df.query(f'Population>{min_population}')
+
+    print("Ваша выборка сохранена в отдельный файл")
+    filtered_df.to_excel(f'./states_directory/states_population({min_population}).xlsx')
+    print(filtered_df)
+
+
+def vlookup_practice() -> None:
+    print('VLOOKUP ----- PRACTICE')
+    df_1 = pd.DataFrame(
+        {'States': ['California', 'Florida', 'Montana', 'Colorado', 'Washington', 'Virginia'],
+         'Capitals': ['Sacramento', 'Tallahassee', 'Helena', 'Denver', 'Olympia', 'Richmond'],
+         'Population': [508529, 193551, 32315, 619968, 52555, 227032],
+         'Popularity': [7, 10, 7, 8, 10, 7]}
+    )
+    df_2 = pd.DataFrame(
+        {'Popularity': [10, 8, 7],
+         'IsExpensive': [True, True, False]}
+    )
+    result_df = pd.merge(df_1, df_2, how='left', on='Popularity')
+    print(result_df)
+
+
 def pandas_practice() -> None:
-    pass
+    if_practice()
+    vlookup_practice()
 
 
 if __name__ == '__main__':
-    math_operations()
+    # math_operations()
+    pandas_practice()
