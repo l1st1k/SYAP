@@ -2,10 +2,59 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
+import PySimpleGUI as sg
+import math
+
+
+class QuadraticEquationSolver:
+    def __init__(self):
+        self.layout = [
+            [sg.Text('Quadratic Equation Solver')],
+            [sg.Text('Enter the values of a, b, and c:')],
+            [sg.Text('a:'), sg.InputText()],
+            [sg.Text('b:'), sg.InputText()],
+            [sg.Text('c:'), sg.InputText()],
+            [sg.Button('Solve'), sg.Button('Clear'), sg.Button('Exit')],
+            [sg.Text('', size=(40, 1), key='output')]
+        ]
+        self.window = sg.Window('Quadratic Equation Solver', self.layout)
+
+    def solve(self, a, b, c):
+        try:
+            a = float(a)
+            b = float(b)
+            c = float(c)
+            discriminant = b**2 - 4*a*c
+            if discriminant < 0:
+                return 'No real roots'
+            elif discriminant == 0:
+                root = -b / (2*a)
+                return f'One real root: {root}'
+            else:
+                root1 = (-b + math.sqrt(discriminant)) / (2*a)
+                root2 = (-b - math.sqrt(discriminant)) / (2*a)
+                return f'Two real roots: {root1}, {root2}'
+        except ValueError:
+            return 'Invalid input'
+
+    def run(self):
+        while True:
+            event, values = self.window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Exit':
+                break
+            elif event == 'Clear':
+                self.window['output'].update('')
+            elif event == 'Solve':
+                a, b, c = values[0], values[1], values[2]
+                output = self.solve(a, b, c)
+                self.window['output'].update(output)
+
+        self.window.close()
 
 
 def pillow_practice() -> None:
-    pass
+    solver = QuadraticEquationSolver()
+    solver.run()
 
 
 def bs4_practice() -> None:
@@ -81,5 +130,5 @@ def make_histograms(url: str) -> None:
 
 
 if __name__ == '__main__':
-    # pillow_practice()
-    bs4_practice()
+    pillow_practice()
+    # bs4_practice()
