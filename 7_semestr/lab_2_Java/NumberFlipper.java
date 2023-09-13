@@ -1,6 +1,6 @@
 public class NumberFlipper {
     public static void main(String[] args) {
-        int numberToFlip = 123;
+        int numberToFlip = 46548;
         int flippedNumber = flipNumber(numberToFlip);
         System.out.println("Original Number: " + numberToFlip);
         System.out.println("Flipped Number: " + flippedNumber);

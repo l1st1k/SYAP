@@ -1,32 +1,24 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 public class RemoveDuplicates {
     public static void main(String[] args) {
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(4);
-        numbers.add(5);
-
+        List<Integer> numbers = Arrays.asList(1, 2, 2, 3, 4, 4, 5);
         List<Integer> uniqueNumbers = removeDuplicates(numbers);
 
         System.out.println("Original List: " + numbers);
         System.out.println("List with Duplicates Removed: " + uniqueNumbers);
     }
 
-    public static <T> List<T> removeDuplicates(List<Integer> list) {
-        HashSet<T> uniqueSet = new HashSet<>();
-        List<T> result = new ArrayList<>();
+    public static List<Integer> removeDuplicates(List<Integer> list) {
+        HashSet<Integer> uniqueSet = new HashSet<>();
+        List<Integer> result = new ArrayList<>();
 
         for (Integer item : list) {
-            if (uniqueSet.add((T) item)) {
-                // If the item is added to the set, it's not a duplicate
-                result.add((T) item);
+            if (uniqueSet.add(item)) {
+                result.add(item);
             }
         }
 
