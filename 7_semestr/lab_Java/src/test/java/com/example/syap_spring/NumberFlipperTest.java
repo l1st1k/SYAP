@@ -1,5 +1,8 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+package com.example.syap_spring;
+
+import com.example.syap_spring.funcs.NumberFlipper;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 
 public class NumberFlipperTest {

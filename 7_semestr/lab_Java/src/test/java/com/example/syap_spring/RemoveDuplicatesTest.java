@@ -1,10 +1,14 @@
-import org.junit.jupiter.api.Test;
+package com.example.syap_spring;
+
+import com.example.syap_spring.funcs.RemoveDuplicates;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class RemoveDuplicatesTest {
 

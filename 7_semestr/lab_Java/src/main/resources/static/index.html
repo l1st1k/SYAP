@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listvanovich - 010101</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Number Flipper</h1>
+<form id="flipForm">
+    <label for="numberToFlip">Enter a number to flip:</label>
+    <input type="number" id="numberToFlip" name="numberToFlip" required>
+    <button type="button" onclick="flipNumber()">Flip Number</button>
+    <p id="flippedNumber"></p>
+</form>
+
+<h1>Remove Duplicates</h1>
+<form id="removeDupForm">
+    <label for="numbers">Enter a list of numbers separated by commas:</label>
+    <input type="text" id="numbers" name="numbers" required>
+    <button type="button" onclick="removeDuplicates()">Remove Duplicates</button>
+    <p id="uniqueNumbers"></p>
+</form>
+
+<script>
+    function flipNumber() {
+        const numberToFlip = document.getElementById("numberToFlip").value;
+        fetch("http://localhost:8080/flipNumber", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(numberToFlip),
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("flippedNumber").textContent = "Flipped Number: " + data;
+            });
+    }
+
+    function removeDuplicates() {
+        const numbers = document.getElementById("numbers").value.split(",").map(Number);
+        fetch(`http://localhost:8080/removeDuplicates?numbers=${numbers}`, {
+            method: "GET",
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("uniqueNumbers").textContent = "Unique Numbers: " + data.join(", ");
+            });
+    }
+</script>
+</body>
+</html>

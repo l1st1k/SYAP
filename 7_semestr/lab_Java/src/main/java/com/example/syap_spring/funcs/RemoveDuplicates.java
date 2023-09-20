@@ -1,3 +1,5 @@
+package com.example.syap_spring.funcs;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

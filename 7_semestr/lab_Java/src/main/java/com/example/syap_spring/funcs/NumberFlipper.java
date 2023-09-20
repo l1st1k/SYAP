@@ -1,3 +1,5 @@
+package com.example.syap_spring.funcs;
+
 public class NumberFlipper {
     public static void main(String[] args) {
         int numberToFlip = 46548;
