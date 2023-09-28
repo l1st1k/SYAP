@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="head">
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="403.html">HTTP-403</a></li>
+      <li><a href="../templates/error.html">HTTP-404</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="history-container">
+  <div class="history-list">
+    <h2>Number Flipper History</h2>
+    <h3>All:</h3>
+    <ul id="numberFlipperAllHistory">
+    </ul>
+    <h3>Unique:</h3>
+    <ul id="numberFlipperUniqueHistory">
+    </ul>
+  </div>
+  <div class="history-list">
+    <h2>Remove Duplicates History</h2>
+    <h3>All:</h3>
+    <ul id="removeDuplicatesAllHistory">
+    </ul>
+    <h3>Unique:</h3>
+    <ul id="removeDuplicatesUniqueHistory">
+    </ul>
+  </div>
+</div>
+
+<script>
+  async function populateHistoryLists() {
+    try {
+      const response = await fetch("http://localhost:8080/history", {
+        method: "GET",
+      });
+      const historyData = await response.json();
+
+      // Get references to the UL elements for all and unique lists of both functions
+      const numberFlipperAllList = document.getElementById("numberFlipperAllHistory");
+      const numberFlipperUniqueList = document.getElementById("numberFlipperUniqueHistory");
+      const removeDuplicatesAllList = document.getElementById("removeDuplicatesAllHistory");
+      const removeDuplicatesUniqueList = document.getElementById("removeDuplicatesUniqueHistory");
+
+      // Function to populate a list with data
+      function populateList(list, data) {
+        for (const item of data) {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = JSON.stringify(item);
+          list.appendChild(listItem);
+        }
+      }
+
+      // Populate the lists for Number Flipper
+      populateList(numberFlipperAllList, historyData.flipNumber.all);
+      populateList(numberFlipperUniqueList, historyData.flipNumber.unique);
+
+      // Populate the lists for Remove Duplicates
+      populateList(removeDuplicatesAllList, historyData.removeDuplicates.all);
+      populateList(removeDuplicatesUniqueList, historyData.removeDuplicates.unique);
+    } catch (error) {
+      console.error("Error fetching history data:", error);
+    }
+  }
+  populateHistoryLists();
+</script>
+</body>
+</html>

@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listvanovich - 010101</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+<header class="head">
+    <nav>
+        <ul>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="403.html">HTTP-403</a></li>
+            <li><a href="../templates/error.html">HTTP-404</a></li>
+        </ul>
+    </nav>
+</header>
 <h1>Number Flipper</h1>
 <form id="flipForm">
     <label for="numberToFlip">Enter a number to flip:</label>
@@ -37,6 +47,11 @@
             .then(data => {
                 document.getElementById("flippedNumber").textContent = "Flipped Number: " + data;
             });
+        fetch(`http://localhost:8080/history`, {
+            method: "GET",
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
     }
 
     function removeDuplicates() {
