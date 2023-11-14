@@ -21,7 +21,9 @@ public class NumberFlipper {
             reversedNumber = reversedNumber * 10 + lastDigit;
             number /= 10;
         }
-
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ignored) {}
         return isNegative ? -reversedNumber : reversedNumber;
     }
 }

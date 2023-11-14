@@ -21,20 +21,25 @@
 <form id="flipForm">
     <label for="numberToFlip">Enter a number to flip:</label>
     <input type="number" id="numberToFlip" name="numberToFlip" required>
-    <button type="button" onclick="flipNumber()">Flip Number</button>
-    <p id="flippedNumber"></p>
+    <button id="btn_flipNumber" type="button" onclick="flipNumber()">Flip Number</button>
+    <div class="loader" id="loader"></div>
+    <p id="flippedNumber" class="hidden"></p>
 </form>
 
 <h1>Remove Duplicates</h1>
 <form id="removeDupForm">
     <label for="numbers">Enter a list of numbers separated by commas:</label>
     <input type="text" id="numbers" name="numbers" required>
-    <button type="button" onclick="removeDuplicates()">Remove Duplicates</button>
-    <p id="uniqueNumbers"></p>
+    <button id="btn_removeDuplicates" type="button" onclick="removeDuplicates()">Remove Duplicates</button>
+    <div class="loader" id="loader2"></div>
+    <p id="uniqueNumbers" class="hidden"></p>
 </form>
 
 <script>
     function flipNumber() {
+        document.getElementById("loader").style.display = "block"; // Display the loader
+        document.getElementById("flippedNumber").style.display = "none"; // Hide the result
+
         const numberToFlip = document.getElementById("numberToFlip").value;
         fetch("http://localhost:8080/flipNumber", {
             method: "POST",
@@ -45,23 +50,27 @@
         })
             .then(response => response.json())
             .then(data => {
+                document.getElementById("loader").style.display = "none";
                 document.getElementById("flippedNumber").textContent = "Flipped Number: " + data;
+                document.getElementById("flippedNumber").style.display = "block";
             });
-        fetch(`http://localhost:8080/history`, {
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(data => console.log(data));
     }
 
+
     function removeDuplicates() {
+        document.getElementById("loader2").style.display = "block";
+        document.getElementById("uniqueNumbers").style.display = "none";
+
         const numbers = document.getElementById("numbers").value.split(",").map(Number);
         fetch(`http://localhost:8080/removeDuplicates?numbers=${numbers}`, {
             method: "GET",
         })
             .then(response => response.json())
             .then(data => {
+                document.getElementById("loader2").style.display = "none";
                 document.getElementById("uniqueNumbers").textContent = "Unique Numbers: " + data.join(", ");
+                document.getElementById("uniqueNumbers").style.display = "block";
+
             });
     }
 </script>

@@ -23,7 +23,9 @@ public class RemoveDuplicates {
                 result.add(item);
             }
         }
-
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ignored) {}
         return result;
     }
 }
